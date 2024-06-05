@@ -1,0 +1,95 @@
+[gd_scene load_steps=16 format=3 uid="uid://bcc1das28ab2n"]
+
+[ext_resource type="Texture2D" uid="uid://cf6omrmapmuhl" path="res://Assets/Backgrounds/8k_stars_milky_way.jpg" id="1_q6tu0"]
+[ext_resource type="Script" path="res://Player.gd" id="2_ojn3g"]
+[ext_resource type="Texture2D" uid="uid://b2bmy4kpiq7gy" path="res://Assets/PNG/Enemies/enemyBlue2.png" id="2_udg6h"]
+[ext_resource type="Script" path="res://Background.gd" id="2_yjm1q"]
+[ext_resource type="Texture2D" uid="uid://dmurivktnqkn2" path="res://Assets/crosshair177.png" id="4_hnddm"]
+[ext_resource type="Script" path="res://Crosshair.gd" id="4_pfaop"]
+[ext_resource type="PackedScene" uid="uid://cnmbwjy7iitbb" path="res://laser.tscn" id="5_sistp"]
+[ext_resource type="Script" path="res://PlayerHealthLabel.gd" id="10_81dt0"]
+[ext_resource type="PackedScene" uid="uid://cx22n3gmtkhlr" path="res://mobster.tscn" id="11_s2rfi"]
+[ext_resource type="PackedScene" uid="uid://da5cru7h5xy8p" path="res://game_over_label.tscn" id="12_6hr3f"]
+[ext_resource type="Script" path="res://MobsterSpawner.gd" id="12_a8l0t"]
+[ext_resource type="Script" path="res://ScoreLabel.gd" id="12_o1atu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lmsdh"]
+radius = 18.0001
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kfbw"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_0u5ns"]
+font_size = 22
+
+[node name="Main" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(600, -3315)
+rotation = 1.5708
+texture = ExtResource("1_q6tu0")
+script = ExtResource("2_yjm1q")
+metadata/_edit_lock_ = true
+
+[node name="Mobster" parent="." instance=ExtResource("11_s2rfi")]
+position = Vector2(580, 42)
+
+[node name="Player" type="Area2D" parent="."]
+position = Vector2(581, 596)
+script = ExtResource("2_ojn3g")
+laser_tscn = ExtResource("5_sistp")
+game_over_tscn = ExtResource("12_6hr3f")
+metadata/_edit_group_ = true
+
+[node name="PlayerSprite" type="Sprite2D" parent="Player"]
+rotation = -3.14159
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_udg6h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_lmsdh")
+
+[node name="MobsterSpawner" type="Node2D" parent="."]
+script = ExtResource("12_a8l0t")
+mobster_tscn = ExtResource("11_s2rfi")
+
+[node name="Timer" type="Timer" parent="MobsterSpawner"]
+autostart = true
+
+[node name="PlayerHealthSprite" type="Sprite2D" parent="."]
+position = Vector2(53, 41)
+rotation = 3.14159
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_udg6h")
+metadata/_edit_group_ = true
+
+[node name="PlayerHealthLabel" type="Label" parent="PlayerHealthSprite"]
+offset_left = 82.4997
+offset_top = 60.0007
+offset_right = 127.5
+offset_bottom = 115.001
+rotation = -3.14159
+text = "3x"
+label_settings = SubResource("LabelSettings_4kfbw")
+script = ExtResource("10_81dt0")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 88.0
+offset_top = 26.0
+offset_right = 167.0
+offset_bottom = 57.0
+text = "XP: 100"
+label_settings = SubResource("LabelSettings_0u5ns")
+script = ExtResource("12_o1atu")
+
+[node name="Crosshair" type="Node2D" parent="."]
+position = Vector2(580, 294)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("4_pfaop")
+metadata/_edit_group_ = true
+
+[node name="CrosshairSprite" type="Sprite2D" parent="Crosshair"]
+texture = ExtResource("4_hnddm")
+
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
+[connection signal="timeout" from="MobsterSpawner/Timer" to="MobsterSpawner" method="mobster_spawn"]

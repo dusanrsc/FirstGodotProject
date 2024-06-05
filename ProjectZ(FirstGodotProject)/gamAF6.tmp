@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://da5cru7h5xy8p"]
+
+[ext_resource type="Script" path="res://game_over_label.gd" id="1_8svaj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tpgnn"]
+font_size = 70
+
+[node name="GameOverLabel" type="Label"]
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 98.0
+offset_bottom = 24.0
+label_settings = SubResource("LabelSettings_tpgnn")
+script = ExtResource("1_8svaj")

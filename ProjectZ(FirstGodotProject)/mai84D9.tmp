@@ -1,0 +1,81 @@
+[gd_scene load_steps=15 format=3 uid="uid://bcc1das28ab2n"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_j1ube"]
+[ext_resource type="Texture2D" uid="uid://cf6omrmapmuhl" path="res://Assets/Backgrounds/8k_stars_milky_way.jpg" id="1_q6tu0"]
+[ext_resource type="Script" path="res://Player.gd" id="2_ojn3g"]
+[ext_resource type="Texture2D" uid="uid://b2bmy4kpiq7gy" path="res://Assets/PNG/Enemies/enemyBlue2.png" id="2_udg6h"]
+[ext_resource type="Script" path="res://Background.gd" id="2_yjm1q"]
+[ext_resource type="Texture2D" uid="uid://dmurivktnqkn2" path="res://Assets/crosshair177.png" id="4_hnddm"]
+[ext_resource type="Script" path="res://Crosshair.gd" id="4_pfaop"]
+[ext_resource type="PackedScene" uid="uid://cnmbwjy7iitbb" path="res://laser.tscn" id="5_sistp"]
+[ext_resource type="Texture2D" uid="uid://dpk83plx2kteb" path="res://Assets/PNG/UI/numeral3.png" id="9_5aujr"]
+[ext_resource type="Texture2D" uid="uid://dglqb3l6r5ysr" path="res://Assets/PNG/UI/numeralX.png" id="10_d1cas"]
+[ext_resource type="Texture2D" uid="uid://dfowemju8dvug" path="res://Assets/PNG/Enemies/enemyBlack1.png" id="11_kd3u3"]
+[ext_resource type="Script" path="res://Mobster.gd" id="11_n358o"]
+[ext_resource type="Texture2D" uid="uid://dm4almgkvkebf" path="res://Assets/PNG/Meteors/meteorBrown_med1.png" id="13_2ttru"]
+[ext_resource type="Script" path="res://Meteor.gd" id="13_qmvgr"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_j1ube")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(600, -3315)
+rotation = 1.5708
+texture = ExtResource("1_q6tu0")
+script = ExtResource("2_yjm1q")
+metadata/_edit_lock_ = true
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(576, 596)
+rotation = -3.14159
+scale = Vector2(0.7, 0.7)
+script = ExtResource("2_ojn3g")
+laser_tscn = ExtResource("5_sistp")
+metadata/_edit_group_ = true
+
+[node name="PlayerSprite" type="Sprite2D" parent="Player"]
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_udg6h")
+
+[node name="PlayerThumbnail" type="Sprite2D" parent="."]
+position = Vector2(61, 50)
+rotation = 3.14159
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_udg6h")
+metadata/_edit_group_ = true
+
+[node name="Num3" type="Sprite2D" parent="PlayerThumbnail"]
+position = Vector2(76.25, 48.75)
+rotation = 3.14159
+scale = Vector2(1.75, 1.75)
+texture = ExtResource("9_5aujr")
+
+[node name="NumX" type="Sprite2D" parent="PlayerThumbnail/Num3"]
+position = Vector2(19.2857, -0.714289)
+texture = ExtResource("10_d1cas")
+
+[node name="Crosshair" type="Node2D" parent="."]
+position = Vector2(576, 605)
+scale = Vector2(0.6, 0.6)
+script = ExtResource("4_pfaop")
+metadata/_edit_group_ = true
+
+[node name="CrosshairSprite" type="Sprite2D" parent="Crosshair"]
+texture = ExtResource("4_hnddm")
+
+[node name="Mobster" type="Node2D" parent="."]
+position = Vector2(614, 36)
+script = ExtResource("11_n358o")
+metadata/_edit_group_ = true
+
+[node name="MobsterSprite" type="Sprite2D" parent="Mobster"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("11_kd3u3")
+
+[node name="Meteor" type="Node2D" parent="."]
+script = ExtResource("13_qmvgr")
+metadata/_edit_group_ = true
+
+[node name="MeteorSprite" type="Sprite2D" parent="Meteor"]
+position = Vector2(720, 276)
+texture = ExtResource("13_2ttru")
